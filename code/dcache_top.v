@@ -119,20 +119,22 @@ assign    cache_dirty  = write_hit;
 
 // tag comparator
 // TODO: add you code here!  (hit=...?,  r_hit_data=...?)
-hit = (sram_valid == 1'b1 and sram_tag == p1_tag) ? 1'b1 : 1'b0;
-r_hit_data = sram_cache_data;
+assign hit = (sram_valid == 1'b1 & sram_tag == p1_tag) ? 1'b1 : 1'b0;
+assign r_hit_data = sram_cache_data;
 // read data :  256-bit to 32-bit
 always@(p1_offset or r_hit_data) begin
     // TODO: add you code here! (p1_data=...?)
-    p1_data <= r_hit_data[7+p1_offset*8:0+p1_offset*8];
+    //p1_data <= r_hit_data[7+p1_offset*8:0+p1_offset*8];
+    p1_data <= r_hit_data[31+p1_offset*8 -: 32];
 end
 
 
 // write data :  32-bit to 256-bit
 always@(p1_offset or r_hit_data or p1_data_i) begin
     // TODO: add you code here! (w_hit_data=...?)
-    w_hit_data <= r_hit_data;
-    w_hit_data[7+p1_offset*8:0+p1_offset*8] <= p1_data_i;
+    w_hit_data = r_hit_data;
+    //w_hit_data[7+p1_offset*8:0+p1_offset*8] <= p1_data_i;
+    w_hit_data[31+p1_offset*8 -: 32] = p1_data_i;
 end
 
 

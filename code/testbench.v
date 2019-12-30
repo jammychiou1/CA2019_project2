@@ -46,6 +46,10 @@ Data_Memory Data_Memory
 );
   
 initial begin
+    
+    $dumpfile("test.dump");
+    $dumpvars(0, TestBench);    
+    
     counter = 0;
     
     // initialize instruction memory (1KB)
@@ -68,6 +72,36 @@ initial begin
     for(i=0; i<32; i=i+1) begin
         CPU.Registers.register[i] = 32'b0;
     end
+    
+    //CPU.PC.pc_o = 0;
+    
+    CPU.PC_ID = 0;
+    CPU.Instruction_ID = 0;
+
+    CPU.RegWrite_EX = 0;
+    CPU.MemWrite_EX = 0;
+    CPU.ALUSrc_EX = 0;
+    CPU.MemRead_EX = 0;
+    CPU.ALUOp_EX = 0;
+    CPU.RS1Data_EX = 0;
+    CPU.RS2Data_EX = 0;
+    CPU.Immediate_EX = 0;
+    CPU.RS1Addr_EX = 0;
+    CPU.RS2Addr_EX = 0;
+    CPU.RDAddr_EX = 0;
+
+    CPU.RegWrite_MEM = 0;
+    CPU.MemWrite_MEM = 0;
+    CPU.MemRead_MEM = 0;
+    CPU.ALURes_MEM = 0;
+    CPU.RS2Data_MEM = 0;
+    CPU.RDAddr_MEM = 0;
+
+    CPU.RegWrite_WB = 0;
+    CPU.MemRead_WB = 0;
+    CPU.ALURes_WB = 0;
+    CPU.MemData_WB = 0;
+    CPU.RDAddr_WB = 0;
     
     // Load instructions into instruction memory
     $readmemb("../testdata/instruction.txt", CPU.Instruction_Memory.memory);
