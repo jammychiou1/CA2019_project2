@@ -144,6 +144,7 @@ Shift_Left_1 Shift_Left_1(
 HDU HDU(
     .Branch_ID_in   (Branch_ID),
     .Zr_in          (RS1Data_ID == RS2Data_ID),
+    .Stall_MEM_in   (Stall_MEM),
     .RS1Addr_ID_in  (RS1Addr_ID),
     .RS2Addr_ID_in  (RS2Addr_ID),
     .ALUSrc_ID_in   (ALUSrc_ID),
